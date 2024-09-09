@@ -1,0 +1,10 @@
+import app from "express";
+import { contentMiddleware } from "../middlewares/contentMiddleware.js";
+import { jwtAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { addContent,showAllContent,showSubscribedContent,subscribeContent } from "../controllers/contentController.js";
+const contentRouter = app.Router();
+contentRouter.post('/addContent',[jwtAuthMiddleware,contentMiddleware],addContent);
+contentRouter.get('/showAllContent',showAllContent);
+contentRouter.get('/showSubscribedContent',jwtAuthMiddleware,showSubscribedContent);
+contentRouter.put('/subscribeContent',jwtAuthMiddleware,subscribeContent);
+export default contentRouter;
