@@ -1,9 +1,9 @@
 import app from "express";
-import { contentMiddleware } from "../middlewares/contentMiddleware.js";
+import { tutorMiddleware } from "../middlewares/tutorMiddleware.js";
 import { jwtAuthMiddleware } from "../middlewares/authMiddleware.js";
 import { addContent,showAllContent,showSubscribedContent,subscribeContent } from "../controllers/contentController.js";
 const contentRouter = app.Router();
-contentRouter.post('/addContent',[jwtAuthMiddleware,contentMiddleware],addContent);
+contentRouter.post('/addContent',[jwtAuthMiddleware,tutorMiddleware],addContent);
 contentRouter.get('/showAllContent',showAllContent);
 contentRouter.get('/showSubscribedContent',jwtAuthMiddleware,showSubscribedContent);
 contentRouter.put('/subscribeContent',jwtAuthMiddleware,subscribeContent);

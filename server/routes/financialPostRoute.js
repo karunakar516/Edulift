@@ -1,0 +1,10 @@
+import { createFinancialPost,getFinancialPost,getFinancialPosts } from "../controllers/financialPostController.js";
+import app from "express";
+import { jwtAuthMiddleware } from "../middlewares/authMiddleware.js";
+import { studentMiddleware } from "../middlewares/studentMiddleware.js";
+import { helperMiddleware } from "../middlewares/helperMiddleware.js";
+const financialPostRouter = app.Router();
+financialPostRouter.post('/createFinancialPost',[jwtAuthMiddleware,studentMiddleware],createFinancialPost);
+financialPostRouter.get('/getFinancialPosts',[jwtAuthMiddleware,helperMiddleware],getFinancialPosts);
+financialPostRouter.get('/getFinancialPost/:id',getFinancialPost);
+export default financialPostRouter;

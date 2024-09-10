@@ -4,7 +4,7 @@ import dbConfig from './config/dbconfig.js';
 import cors from 'cors';
 import authRouter from './routes/authRoute.js';
 import contentRouter from './routes/contentRoute.js';
-
+import financialPostRoute from './routes/financialPostRoute.js';
 
 configDotenv();
 const app=express();
@@ -17,6 +17,7 @@ app.use(express.urlencoded({extended:false}))
 //routes
 app.use('/api/auth',authRouter)
 app.use('/api/content',contentRouter)
+app.use('/api/financialPost',financialPostRoute)
 
 
 
