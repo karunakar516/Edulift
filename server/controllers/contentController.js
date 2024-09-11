@@ -1,5 +1,6 @@
 import Users from "../models/userModel.js"
 import Content from "../models/contentModel.js";
+import redisClient from "../config/redisconfig.js";
 
 export const addContent = async (req,res) =>{
     try{
@@ -15,6 +16,10 @@ export const addContent = async (req,res) =>{
 
 export const showAllContent = async (req,res) => {
     try{
+        const cachedContent = await redisClient.get("showAllContent");
+        if(cachedContent){
+            return res.status(200).json(JSON.parse(cachedContent));
+        }
         const content = await Content.aggregate([
             {
                 $project: {
@@ -25,6 +30,7 @@ export const showAllContent = async (req,res) => {
                 }
             }
         ]);
+        await redisClient.set("showAllContent",JSON.stringify(content),{EX:60});
         res.status(200).json(content);
     }
     catch(err){
